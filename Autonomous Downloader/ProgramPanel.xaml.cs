@@ -41,8 +41,8 @@ namespace Autonomous_Downloader
 
             new CommandTemplate("DriveForward", 2),
             new CommandTemplate("DriveBackwards", 2),
-            new CommandTemplate("TurnLeft", 2),
-            new CommandTemplate("TurnRight", 2),
+            new CommandTemplate("TurnLeft", 3),
+            new CommandTemplate("TurnRight", 3),
 
             new CommandTemplate("Finished", 0)
         };
