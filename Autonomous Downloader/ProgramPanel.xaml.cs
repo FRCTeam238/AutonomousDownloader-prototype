@@ -1,7 +1,9 @@
 ﻿using Autonomous_Downloader.Autonomous_x;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,38 @@ namespace Autonomous_Downloader
             CommandName = name;
             NumberOfParameters = numParameters;
         }
+
+        public static CommandTemplate[] LoadCommandSet(String filepath)
+        {
+            CommandTemplate[] retval = null;
+
+            using (StreamReader sr = new StreamReader(filepath))
+            {
+                String json;
+
+                json = sr.ReadToEnd();
+                retval = JsonConvert.DeserializeObject<CommandTemplate[]>(json);
+            }
+
+            return retval;
+        }
+
+        public static void SaveCommandSet(CommandTemplate[] commandSet, String filepath)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(filepath))
+                {
+                    String json = JsonConvert.SerializeObject(commandSet, Formatting.Indented);
+                    sw.Write(json);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
     }
 
     /// <summary>
@@ -34,18 +68,7 @@ namespace Autonomous_Downloader
     /// </summary>
     public partial class ProgramPanel : UserControl
     {
-        private CommandTemplate[] CommandSet = new CommandTemplate[]
-        {
-            new CommandTemplate("CollectorIn", 0),
-            new CommandTemplate("CollectorOut", 0),
-
-            new CommandTemplate("DriveForward", 2),
-            new CommandTemplate("DriveBackwards", 2),
-            new CommandTemplate("TurnLeft", 3),
-            new CommandTemplate("TurnRight", 3),
-
-            new CommandTemplate("Finished", 0)
-        };
+        private CommandTemplate[] CommandSet = null;
 
         public String ProgramNameLabel
         {
@@ -97,6 +120,29 @@ namespace Autonomous_Downloader
             }
         }
 
+        private bool LoadCommandSet(String filepath)
+        {
+            bool retval = false;
+
+            try
+            {
+                CommandSet = CommandTemplate.LoadCommandSet(filepath);
+                retval = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Exception {0}", ex.Message);
+                Console.WriteLine("{0}", ex.StackTrace);
+            }
+
+            return retval;
+        }
+
+        private void SaveCommandSet(String filepath)
+        {
+            CommandTemplate.SaveCommandSet(CommandSet, filepath);
+        }
+
         public ProgramPanel()
         {
             InitializeComponent();
@@ -106,6 +152,23 @@ namespace Autonomous_Downloader
 
         private void InitializeCommandsList()
         {
+            if (!LoadCommandSet("commands.json"))
+            {
+                CommandSet = new CommandTemplate[]
+                {
+                    new CommandTemplate("CollectorIn", 0),
+                    new CommandTemplate("CollectorOut", 0),
+
+                    new CommandTemplate("DriveForward", 2),
+                    new CommandTemplate("DriveBackwards", 2),
+                    new CommandTemplate("TurnLeft", 3),
+                    new CommandTemplate("TurnRight", 3),
+
+                    new CommandTemplate("Finished", 0)
+                };
+                SaveCommandSet("commands.json");
+            }
+
             CommandTemplateLB.ItemsSource = CommandSet;
             CommandTemplateLB.SelectedIndex = 0;
         }
