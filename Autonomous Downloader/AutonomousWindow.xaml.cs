@@ -263,6 +263,48 @@ namespace Autonomous_Downloader
             }
         }
 
+#if true
+        private void ProgramModeEntry_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                TextBox box = (TextBox)sender;
+                e.Handled = true;
+
+                TextBlock block = (TextBlock)box.Tag;
+                box.Visibility = System.Windows.Visibility.Collapsed;
+                block.Visibility = System.Windows.Visibility.Visible;
+
+                block.Text = box.Text;
+
+                // int selectedIndex = ProgramParametersLB.SelectedIndex;
+                int selectedIndex = ProgramModeLB.SelectedIndex;
+
+                try
+                {
+                    // Parameters[selectedIndex] = box.Text;
+                    String tt = box.Text;
+                }
+                catch (Exception ex)
+                {
+                    /*TODO do something with the error */
+                }
+
+            }
+        }
+
+        private void ProgramModeEntry_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            e.Handled = true;
+
+            TextBlock block = (TextBlock)box.Tag;
+            box.Visibility = System.Windows.Visibility.Collapsed;
+            block.Visibility = System.Windows.Visibility.Visible;
+
+            block.Text = box.Text;
+        }
+#else
         private void ProgramModeEntry_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
@@ -286,6 +328,7 @@ namespace Autonomous_Downloader
             display.Visibility = System.Windows.Visibility.Visible;
             display.Text = SelectedProgram.Name;
         }
+#endif
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

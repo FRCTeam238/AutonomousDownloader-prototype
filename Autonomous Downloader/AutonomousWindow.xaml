@@ -57,7 +57,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock x:Name="ProgramModeTB" Text="{Binding Name}"  Tag="{Binding ElementName=ProgramModeEntry}" MouseDown="ProgramModeTB_MouseDown" />
-                            <TextBox x:Name="ProgramModeEntry" Visibility="Collapsed" Tag="{Binding ElementName=ProgramModeTB}" TextChanged="ProgramModeEntry_TextChanged" KeyDown="ProgramModeEntry_KeyDown" LostKeyboardFocus="ProgramModeEntry_LostKeyboardFocus" BorderThickness="0,1,1,1" />
+                            <TextBox x:Name="ProgramModeEntry" Visibility="Collapsed" Tag="{Binding ElementName=ProgramModeTB}" TextChanged="ProgramModeEntry_TextChanged" KeyDown="ProgramModeEntry_KeyDown" PreviewLostKeyboardFocus="ProgramModeEntry_PreviewLostKeyboardFocus" BorderThickness="0,1,1,1" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -1,0 +1,30 @@
+[
+  {
+    "CommandName": "CollectorIn",
+    "NumberOfParameters": 0
+  },
+  {
+    "CommandName": "CollectorOut",
+    "NumberOfParameters": 0
+  },
+  {
+    "CommandName": "DriveForward",
+    "NumberOfParameters": 2
+  },
+  {
+    "CommandName": "DriveBackwards",
+    "NumberOfParameters": 2
+  },
+  {
+    "CommandName": "TurnLeft",
+    "NumberOfParameters": 3
+  },
+  {
+    "CommandName": "TurnRight",
+    "NumberOfParameters": 3
+  },
+  {
+    "CommandName": "Finished",
+    "NumberOfParameters": 0
+  }
+]

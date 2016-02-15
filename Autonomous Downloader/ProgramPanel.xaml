@@ -21,7 +21,7 @@
 
             <Grid Margin="10,10,10,5">
                 <Grid VerticalAlignment="Top">
-                    <Label Content="Mode" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="Route" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
                     <Label x:Name="ProgramNameLbl" Content="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="59,0,0,0" Width="91"/>
                 </Grid>
                 <Grid Height="30" Margin="0,31,0,103" VerticalAlignment="Top">
