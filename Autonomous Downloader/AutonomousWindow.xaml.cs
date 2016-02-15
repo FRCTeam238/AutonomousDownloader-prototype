@@ -285,7 +285,7 @@ namespace Autonomous_Downloader
                     // Parameters[selectedIndex] = box.Text;
                     String tt = box.Text;
                 }
-                catch (Exception ex)
+                catch (Exception /*ex*/)
                 {
                     /* //TODO do something with the error */
                 }

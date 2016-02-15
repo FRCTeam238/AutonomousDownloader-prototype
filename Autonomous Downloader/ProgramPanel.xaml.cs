@@ -19,50 +19,6 @@ using System.Windows.Shapes;
 
 namespace Autonomous_Downloader
 {
-    public class CommandTemplate
-    {
-        public String CommandName { get; set; }
-        public int NumberOfParameters { get; set; }
-
-        public CommandTemplate(String name, int numParameters)
-        {
-            CommandName = name;
-            NumberOfParameters = numParameters;
-        }
-
-        public static CommandTemplate[] LoadCommandSet(String filepath)
-        {
-            CommandTemplate[] retval = null;
-
-            using (StreamReader sr = new StreamReader(filepath))
-            {
-                String json;
-
-                json = sr.ReadToEnd();
-                retval = JsonConvert.DeserializeObject<CommandTemplate[]>(json);
-            }
-
-            return retval;
-        }
-
-        public static void SaveCommandSet(CommandTemplate[] commandSet, String filepath)
-        {
-            try
-            {
-                using (StreamWriter sw = new StreamWriter(filepath))
-                {
-                    String json = JsonConvert.SerializeObject(commandSet, Formatting.Indented);
-                    sw.Write(json);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
-        }
-    }
-
     /// <summary>
     /// Interaction logic for ProgramPanel.xaml
     /// </summary>
@@ -271,7 +227,7 @@ namespace Autonomous_Downloader
                     //C Parameters[selectedIndex] = Convert.ToInt32(box.Text);
                     Parameters[selectedIndex] = box.Text;
                 }
-                catch (Exception ex)
+                catch (Exception /*ex*/)
                 {
                     /*TODO do something with the error */
                 }
@@ -328,9 +284,9 @@ namespace Autonomous_Downloader
                     //C Parameters[selectedIndex] = Convert.ToInt32(box.Text);
                     Parameters[selectedIndex] = box.Text;
                 }
-                catch (Exception ex)
+                catch (Exception /*ex*/)
                 {
-                    /*TODO do something with the error */
+                    /* //TODO do something with the error */
                 }
             }
         }
