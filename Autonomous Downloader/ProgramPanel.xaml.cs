@@ -87,6 +87,7 @@ namespace Autonomous_Downloader
             }
             catch(Exception ex)
             {
+                //TODO do something with this expection
                 Console.WriteLine("Exception {0}", ex.Message);
                 Console.WriteLine("{0}", ex.StackTrace);
             }
@@ -112,15 +113,15 @@ namespace Autonomous_Downloader
             {
                 CommandSet = new CommandTemplate[]
                 {
-                    new CommandTemplate("CollectorIn", 0),
-                    new CommandTemplate("CollectorOut", 0),
+                    new CommandTemplate("CollectorIn"),
+                    new CommandTemplate("CollectorOut"),
 
-                    new CommandTemplate("DriveForward", 2),
-                    new CommandTemplate("DriveBackwards", 2),
-                    new CommandTemplate("TurnLeft", 3),
-                    new CommandTemplate("TurnRight", 3),
+                    new CommandTemplate("DriveForward", new String[] { "Target", "Speed" } ),
+                    new CommandTemplate("DriveBackwards", new String[] { "Target", "Speed" }),
+                    new CommandTemplate("TurnLeft", new String[] { "Target", "Speed", "Other" }),
+                    new CommandTemplate("TurnRight", new String[] { "Target", "Speed", "Other" }),
 
-                    new CommandTemplate("Finished", 0)
+                    new CommandTemplate("Finished")
                 };
                 SaveCommandSet("commands.json");
             }

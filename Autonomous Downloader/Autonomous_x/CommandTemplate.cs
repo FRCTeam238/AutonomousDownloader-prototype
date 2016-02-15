@@ -11,12 +11,31 @@ namespace Autonomous_Downloader.Autonomous_x
     public class CommandTemplate
     {
         public String CommandName { get; set; }
-        public int NumberOfParameters { get; set; }
+        //C public int NumberOfParameters { get; set; }
 
-        public CommandTemplate(String name, int numParameters)
+        [Newtonsoft.Json.JsonIgnore]
+        public int NumberOfParameters
+        {
+            get
+            {
+                return ParameterNames.Length;
+            }
+        }
+
+        public String[] ParameterNames { get; set; }
+
+        public CommandTemplate(String name)
         {
             CommandName = name;
-            NumberOfParameters = numParameters;
+            ParameterNames = new String[0];
+        }
+
+        [Newtonsoft.Json.JsonConstructor]
+        public CommandTemplate(String name, String[] parameterNames)
+        {
+            CommandName = name;
+            //C NumberOfParameters = numParameters;
+            ParameterNames = parameterNames;
         }
 
         public static CommandTemplate[] LoadCommandSet(String filepath)
@@ -60,7 +79,7 @@ namespace Autonomous_Downloader.Autonomous_x
         public String GetParameterName(int parameterIndex)
         {
             //TODO make the parameter index map to a real name of the parameter.
-            return String.Format("[{0}]", parameterIndex);
+            return String.Format("[{0}]", ParameterNames[parameterIndex]);
         }
     }
 }
