@@ -23,7 +23,7 @@ namespace Autonomous_Downloader
     /// </summary>
     public partial class AutonomousWindow : Window
     {
-        private const String ProgramVersion = "v1.4";
+        private const String ProgramVersion = "v1.5";
         private RouteGroup mProgramModes = null;
         String mSaveFilename;
 
