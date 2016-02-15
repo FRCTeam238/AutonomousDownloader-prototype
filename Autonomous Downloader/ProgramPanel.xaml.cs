@@ -229,7 +229,7 @@ namespace Autonomous_Downloader
                 }
                 catch (Exception /*ex*/)
                 {
-                    /*TODO do something with the error */
+                    /* //TODO do something with the error */
                 }
             }
         }
