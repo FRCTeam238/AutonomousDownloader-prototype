@@ -48,11 +48,11 @@ namespace Autonomous_Downloader
             }
         }
 
-        public ObservableCollection<String> Parameters
+        public ObservableCollection<ParameterInstance> Parameters
         {
             get
             {
-                return (ObservableCollection<String>)ProgramParametersLB.ItemsSource;
+                return (ObservableCollection<ParameterInstance>)ProgramParametersLB.ItemsSource;
             }
 
             set
@@ -126,6 +126,7 @@ namespace Autonomous_Downloader
                 SaveCommandSet("commands.json");
             }
 
+            CommandTemplate.CommandSet = CommandSet;
             CommandTemplateLB.ItemsSource = CommandSet;
             CommandTemplateLB.SelectedIndex = 0;
         }
@@ -135,7 +136,8 @@ namespace Autonomous_Downloader
             Command selectedCommand = SelectedCommand;
             if (selectedCommand != null)
             {
-                ProgramParametersLB.ItemsSource = selectedCommand.Parameters;
+                //C ProgramParametersLB.ItemsSource = selectedCommand.Parameters;
+                ProgramParametersLB.ItemsSource = selectedCommand.ParameterInstances;
             }
             else
             {
@@ -227,7 +229,7 @@ namespace Autonomous_Downloader
                 try
                 {
                     //C Parameters[selectedIndex] = Convert.ToInt32(box.Text);
-                    Parameters[selectedIndex] = box.Text;
+                    Parameters[selectedIndex].Value = box.Text;
                 }
                 catch (Exception /*ex*/)
                 {
@@ -286,7 +288,8 @@ namespace Autonomous_Downloader
                 try
                 {
                     //C Parameters[selectedIndex] = Convert.ToInt32(box.Text);
-                    Parameters[selectedIndex] = box.Text;
+                    ParameterInstance pi = (ParameterInstance)Parameters[selectedIndex];
+                    Parameters[selectedIndex].Value = box.Text;
                 }
                 catch (Exception /*ex*/)
                 {

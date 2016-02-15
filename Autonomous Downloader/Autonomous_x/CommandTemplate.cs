@@ -10,6 +10,29 @@ namespace Autonomous_Downloader.Autonomous_x
 {
     public class CommandTemplate
     {
+        //TODO Consider whether this can be done in another form.
+        /* CommandTemplates are created when the program is created, but not needed
+         * until the program is loaded by the JSON loader. We may be able to move
+         * this to a different construct that allows it to remain global.
+         */
+        public static CommandTemplate[] CommandSet = null;
+
+        public static CommandTemplate FindCommandByName(String name)
+        {
+            CommandTemplate retval = null;
+            
+            foreach (CommandTemplate commandTemplate in CommandTemplate.CommandSet)
+            {
+                if (commandTemplate.CommandName == name)
+                {
+                    retval = commandTemplate;
+                    break;
+                }
+            }
+
+            return retval;
+        }
+
         public String CommandName { get; set; }
         //C public int NumberOfParameters { get; set; }
 
@@ -73,6 +96,12 @@ namespace Autonomous_Downloader.Autonomous_x
         public Command CreateCommandInstance()
         {
             Command retval = new Command(this);
+            return retval;
+        }
+
+        public ParameterInstance CreateParameterInstance(int index)
+        {
+            ParameterInstance retval = new ParameterInstance(this, index);
             return retval;
         }
 

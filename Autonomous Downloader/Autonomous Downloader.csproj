@@ -66,6 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -99,6 +100,7 @@
     <Compile Include="Autonomous_x\AutonomouRoute.cs" />
     <Compile Include="Autonomous_x\Command.cs" />
     <Compile Include="Autonomous_x\CommandTemplate.cs" />
+    <Compile Include="Autonomous_x\ParameterInstance.cs" />
     <Compile Include="Autonomous_x\RouteGroup.cs" />
     <Page Include="ProgramPanel.xaml">
       <SubType>Designer</SubType>

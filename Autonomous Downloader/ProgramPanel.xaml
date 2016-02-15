@@ -59,7 +59,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock x:Name="ParameterTB" Text="{Binding}"  Tag="{Binding ElementName=ParameterEntry}" MouseDown="ParameterTB_MouseDown" Background="White" />
+                            <TextBlock x:Name="ParameterNameTB" Text="{Binding Name}" />
+                            <TextBlock x:Name="ParameterTB" Text="{Binding Value}"  Tag="{Binding ElementName=ParameterEntry}" MouseDown="ParameterTB_MouseDown" Background="White" />
                             <TextBox Name="ParameterEntry" Visibility="Collapsed" Tag="{Binding ElementName=ParameterTB}" KeyDown="ParameterEntry_KeyDown" PreviewLostKeyboardFocus="ParameterEntry_PreviewLostKeyboardFocus"/>
                         </StackPanel>
                     </DataTemplate>
