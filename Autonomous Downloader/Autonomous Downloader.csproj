@@ -100,7 +100,7 @@
     <Compile Include="Autonomous\CommandStateTemplate.cs" />
     <Compile Include="Autonomous\Program.cs" />
     <Compile Include="Autonomous\ProgramList.cs" />
-    <Compile Include="Autonomous_x\AutonomousMode.cs" />
+    <Compile Include="Autonomous_x\AutonomouRoute.cs" />
     <Compile Include="Autonomous_x\Command.cs" />
     <Compile Include="Autonomous_x\ModeGroup.cs" />
     <Page Include="ProgramPanel.xaml">
