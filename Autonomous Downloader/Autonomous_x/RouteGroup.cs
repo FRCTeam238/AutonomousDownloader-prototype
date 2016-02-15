@@ -7,18 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Autonomous_Downloader.Autonomous
+namespace Autonomous_Downloader.Autonomous_x
 {
-    public class ProgramList : ObservableCollection<Program>
+    public class RouteGroup
     {
-        public ProgramList()
-        {
-            // do nothing
-        }
+        public ObservableCollection<AutonomousRoute> Routes = new ObservableCollection<AutonomousRoute>();
 
-        public Program NewProgram(String name)
+        public static RouteGroup Load(String filepath)
         {
-            return new Program(name);
+            RouteGroup retval = null;
+
+            using (StreamReader sr = new StreamReader(filepath))
+            {
+                String json;
+
+                json = sr.ReadToEnd();
+                retval = JsonConvert.DeserializeObject<RouteGroup>(json);
+            }
+
+            return retval;
         }
 
 
@@ -38,21 +45,5 @@ namespace Autonomous_Downloader.Autonomous
                 Console.WriteLine(e.Message);
             }
         }
-
-        public static ProgramList Load(String filepath)
-        {
-            ProgramList retval = null;
-
-            using (StreamReader sr = new StreamReader(filepath))
-            {
-                String json;
-                    
-                json = sr.ReadToEnd();
-                retval = JsonConvert.DeserializeObject<ProgramList>(json);
-            }
-
-            return retval;
-        }
-
     }
 }

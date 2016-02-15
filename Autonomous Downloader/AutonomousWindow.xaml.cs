@@ -24,7 +24,7 @@ namespace Autonomous_Downloader
     public partial class AutonomousWindow : Window
     {
         private const String ProgramVersion = "v1.4";
-        private ModeGroup mProgramModes = null;
+        private RouteGroup mProgramModes = null;
         String mSaveFilename;
 
         private String SaveFilename
@@ -73,8 +73,8 @@ namespace Autonomous_Downloader
 
         private void InitializeProgram()
         {
-            ModeGroup programModes = new ModeGroup();
-            programModes.AutonomousModes.Add(new AutonomousRoute("new"));
+            RouteGroup programModes = new RouteGroup();
+            programModes.Routes.Add(new AutonomousRoute("new"));
             SetWindowTitle("");
             AddNewMode(programModes);
         }
@@ -102,7 +102,7 @@ namespace Autonomous_Downloader
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ModeGroup programList = mProgramModes;
+            RouteGroup programList = mProgramModes;
             if (programList != null)
             {
                 if (String.IsNullOrEmpty(SaveFilename))
@@ -135,8 +135,8 @@ namespace Autonomous_Downloader
             bool retval = false;
             try
             {
-                Autonomous_x.ModeGroup programList = null;
-                programList = Autonomous_x.ModeGroup.Load(filename);
+                Autonomous_x.RouteGroup programList = null;
+                programList = Autonomous_x.RouteGroup.Load(filename);
 
                 if (programList != null)
                 {
@@ -156,16 +156,16 @@ namespace Autonomous_Downloader
             return retval;
         }
 
-        private void AddNewMode(Autonomous_x.ModeGroup programList)
+        private void AddNewMode(Autonomous_x.RouteGroup programList)
         {
             mProgramModes = programList;
-            ProgramModeLB.ItemsSource = mProgramModes.AutonomousModes;
+            ProgramModeLB.ItemsSource = mProgramModes.Routes;
             ProgramModeLB.SelectedIndex = 0;
         }
 
         private void SaveFile(String filename)
         {
-            ModeGroup programList = mProgramModes;
+            RouteGroup programList = mProgramModes;
             if (programList != null)
             {
                 programList.Save(filename);
@@ -195,9 +195,9 @@ namespace Autonomous_Downloader
             if ((ProgramModeLB.SelectedIndex >= 0) && (ProgramModeLB.SelectedIndex < ProgramModeLB.Items.Count - 1))
             {
                 int index = ProgramModeLB.SelectedIndex;
-                AutonomousRoute item = mProgramModes.AutonomousModes[index];
-                mProgramModes.AutonomousModes.RemoveAt(index);
-                mProgramModes.AutonomousModes.Insert(index + 1, item);
+                AutonomousRoute item = mProgramModes.Routes[index];
+                mProgramModes.Routes.RemoveAt(index);
+                mProgramModes.Routes.Insert(index + 1, item);
                 ProgramModeLB.SelectedIndex = index + 1;
             }
         }
@@ -209,9 +209,9 @@ namespace Autonomous_Downloader
             if (ProgramModeLB.SelectedIndex > 0)
             {
                 int index = ProgramModeLB.SelectedIndex;
-                AutonomousRoute item = mProgramModes.AutonomousModes[index];
-                mProgramModes.AutonomousModes.RemoveAt(index);
-                mProgramModes.AutonomousModes.Insert(index - 1, item);
+                AutonomousRoute item = mProgramModes.Routes[index];
+                mProgramModes.Routes.RemoveAt(index);
+                mProgramModes.Routes.Insert(index - 1, item);
                 ProgramModeLB.SelectedIndex = index - 1;
             }
         }
@@ -222,11 +222,11 @@ namespace Autonomous_Downloader
 
             if ((ProgramModeLB.SelectedIndex >= 0) && (ProgramModeLB.SelectedIndex < ProgramModeLB.Items.Count))
             {
-                mProgramModes.AutonomousModes.Insert(ProgramModeLB.SelectedIndex + 1, mode);
+                mProgramModes.Routes.Insert(ProgramModeLB.SelectedIndex + 1, mode);
             }
             else
             {
-                mProgramModes.AutonomousModes.Add(mode);
+                mProgramModes.Routes.Add(mode);
             }
         }
 
@@ -234,7 +234,7 @@ namespace Autonomous_Downloader
         {
             if (ProgramModeLB.SelectedIndex >= 0)
             {
-                mProgramModes.AutonomousModes.RemoveAt(ProgramModeLB.SelectedIndex);
+                mProgramModes.Routes.RemoveAt(ProgramModeLB.SelectedIndex);
             }
         }
 
@@ -287,7 +287,7 @@ namespace Autonomous_Downloader
                 }
                 catch (Exception ex)
                 {
-                    /*TODO do something with the error */
+                    /* //TODO do something with the error */
                 }
 
             }
