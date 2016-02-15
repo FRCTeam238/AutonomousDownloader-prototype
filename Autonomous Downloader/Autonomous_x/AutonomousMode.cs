@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace Autonomous_Downloader.Autonomous_x
 {
-    public class AutonomousMode
+    /// <summary>
+    /// A list of commands to execute in the order specified by a user.
+    /// </summary>
+    /// 
+    /// The autonomous route is an order sequence of events, steps for the robot to perform
+    /// as part of a specific route.
+    /// 
+    public class AutonomousRoute
     {
         public String Name { get; set; }
         public ObservableCollection<Command> Commands = new ObservableCollection<Command>();
 
-        public AutonomousMode(String name)
+        public AutonomousRoute(String name)
         {
             Name = name;
         }

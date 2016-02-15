@@ -11,7 +11,7 @@ namespace Autonomous_Downloader.Autonomous_x
 {
     public class ModeGroup
     {
-        public ObservableCollection<AutonomousMode> AutonomousModes = new ObservableCollection<AutonomousMode>();
+        public ObservableCollection<AutonomousRoute> AutonomousModes = new ObservableCollection<AutonomousRoute>();
 
         public static ModeGroup Load(String filepath)
         {

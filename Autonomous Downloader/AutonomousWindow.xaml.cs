@@ -40,13 +40,13 @@ namespace Autonomous_Downloader
             }
         }
 
-        private AutonomousMode SelectedProgram
+        private AutonomousRoute SelectedProgram
         {
             get
             {
                 if (ProgramModeLB.SelectedItem != null)
                 {
-                    return (AutonomousMode)ProgramModeLB.SelectedItem;
+                    return (AutonomousRoute)ProgramModeLB.SelectedItem;
                 }
                 else
                 {
@@ -74,7 +74,7 @@ namespace Autonomous_Downloader
         private void InitializeProgram()
         {
             ModeGroup programModes = new ModeGroup();
-            programModes.AutonomousModes.Add(new AutonomousMode("new"));
+            programModes.AutonomousModes.Add(new AutonomousRoute("new"));
             SetWindowTitle("");
             AddNewMode(programModes);
         }
@@ -180,7 +180,7 @@ namespace Autonomous_Downloader
 
         private void ProgramModeLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AutonomousMode selectedMode = SelectedProgram;
+            AutonomousRoute selectedMode = SelectedProgram;
 
             // display the new program mode in the right side panel
             if (selectedMode != null)
@@ -195,7 +195,7 @@ namespace Autonomous_Downloader
             if ((ProgramModeLB.SelectedIndex >= 0) && (ProgramModeLB.SelectedIndex < ProgramModeLB.Items.Count - 1))
             {
                 int index = ProgramModeLB.SelectedIndex;
-                AutonomousMode item = mProgramModes.AutonomousModes[index];
+                AutonomousRoute item = mProgramModes.AutonomousModes[index];
                 mProgramModes.AutonomousModes.RemoveAt(index);
                 mProgramModes.AutonomousModes.Insert(index + 1, item);
                 ProgramModeLB.SelectedIndex = index + 1;
@@ -209,7 +209,7 @@ namespace Autonomous_Downloader
             if (ProgramModeLB.SelectedIndex > 0)
             {
                 int index = ProgramModeLB.SelectedIndex;
-                AutonomousMode item = mProgramModes.AutonomousModes[index];
+                AutonomousRoute item = mProgramModes.AutonomousModes[index];
                 mProgramModes.AutonomousModes.RemoveAt(index);
                 mProgramModes.AutonomousModes.Insert(index - 1, item);
                 ProgramModeLB.SelectedIndex = index - 1;
@@ -218,7 +218,7 @@ namespace Autonomous_Downloader
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            AutonomousMode mode = new AutonomousMode("new");
+            AutonomousRoute mode = new AutonomousRoute("new");
 
             if ((ProgramModeLB.SelectedIndex >= 0) && (ProgramModeLB.SelectedIndex < ProgramModeLB.Items.Count))
             {
@@ -254,7 +254,7 @@ namespace Autonomous_Downloader
 
         private void ProgramModeEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            AutonomousMode mode = SelectedProgram;
+            AutonomousRoute mode = SelectedProgram;
             if (mode != null)
             {
                 TextBox editBox = sender as TextBox;
