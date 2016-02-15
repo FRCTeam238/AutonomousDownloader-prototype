@@ -76,7 +76,7 @@ namespace Autonomous_Downloader
             RouteGroup programModes = new RouteGroup();
             programModes.Routes.Add(new AutonomousRoute("new"));
             SetWindowTitle("");
-            AddNewMode(programModes);
+            AddNewRoute(programModes);
         }
 
         private void SetWindowTitle(String filename)
@@ -141,7 +141,7 @@ namespace Autonomous_Downloader
                 if (programList != null)
                 {
                     SaveFilename = filename;
-                    AddNewMode(programList);
+                    AddNewRoute(programList);
                 }
 
                 retval = true;
@@ -156,11 +156,16 @@ namespace Autonomous_Downloader
             return retval;
         }
 
-        private void AddNewMode(Autonomous_x.RouteGroup programList)
+        private void AddNewRoute(Autonomous_x.RouteGroup programList)
         {
             mProgramModes = programList;
-            ProgramModeLB.ItemsSource = mProgramModes.Routes;
+            UpdateRouteList();
             ProgramModeLB.SelectedIndex = 0;
+        }
+
+        private void UpdateRouteList()
+        {
+            ProgramModeLB.ItemsSource = mProgramModes.Routes;
         }
 
         private void SaveFile(String filename)

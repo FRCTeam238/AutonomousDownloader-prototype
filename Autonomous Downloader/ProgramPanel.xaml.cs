@@ -149,17 +149,18 @@ namespace Autonomous_Downloader
                 CommandTemplate item = (CommandTemplate)CommandTemplateLB.SelectedItem;
                 if (item != null)
                 {
+                    Command command = item.CreateCommandInstance();
                     if (ProgramCommandsLB.SelectedItem != null)
                     {
                         int index = ProgramCommandsLB.SelectedIndex + 1;
-                        Commands.Insert(index, new Command(item.CommandName, item.NumberOfParameters));
+                        Commands.Insert(index, command);
                         ProgramCommandsLB.SelectedIndex = index;
                     }
                     else
                     {
-                        Commands.Add(new Command(item.CommandName, item.NumberOfParameters));
+                        Commands.Add(command);
                         ProgramCommandsLB.SelectedIndex = ProgramCommandsLB.Items.Count - 1;
-                    }
+                    }   
                 }
             }
         }
@@ -231,6 +232,7 @@ namespace Autonomous_Downloader
                 {
                     /* //TODO do something with the error */
                 }
+                RefreshCommandList();
             }
         }
 
@@ -257,15 +259,16 @@ namespace Autonomous_Downloader
                 CommandTemplate item = (CommandTemplate)CommandTemplateLB.SelectedItem;
                 if (item != null)
                 {
+                    Command command = item.CreateCommandInstance();
                     if (ProgramCommandsLB.SelectedItem != null)
                     {
                         int index = ProgramCommandsLB.SelectedIndex + 1;
-                        Commands.Insert(index, new Command(item.CommandName, item.NumberOfParameters));
+                        Commands.Insert(index, command);
                         ProgramCommandsLB.SelectedIndex = index;
                     }
                     else
                     {
-                        Commands.Add(new Command(item.CommandName, item.NumberOfParameters));
+                        Commands.Add(command);
                         ProgramCommandsLB.SelectedIndex = ProgramCommandsLB.Items.Count - 1;
                     }   
                 }
@@ -288,7 +291,13 @@ namespace Autonomous_Downloader
                 {
                     /* //TODO do something with the error */
                 }
+                RefreshCommandList();
             }
+        }
+
+        private void RefreshCommandList()
+        {
+            ProgramCommandsLB.Items.Refresh();
         }
     }
 }

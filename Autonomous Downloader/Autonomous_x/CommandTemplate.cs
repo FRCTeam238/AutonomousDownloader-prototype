@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Autonomous_Downloader.Autonomous_x
 {
-    class CommandTemplate
+    public class CommandTemplate
     {
         public String CommandName { get; set; }
         public int NumberOfParameters { get; set; }
@@ -49,6 +49,18 @@ namespace Autonomous_Downloader.Autonomous_x
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
+        }
+
+        public Command CreateCommandInstance()
+        {
+            Command retval = new Command(this);
+            return retval;
+        }
+
+        public String GetParameterName(int parameterIndex)
+        {
+            //TODO make the parameter index map to a real name of the parameter.
+            return String.Format("[{0}]", parameterIndex);
         }
     }
 }
