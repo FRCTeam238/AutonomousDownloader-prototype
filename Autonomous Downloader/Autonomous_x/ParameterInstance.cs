@@ -29,6 +29,7 @@ namespace Autonomous_Downloader.Autonomous_x
         {
             mTemplate = template;
             mParameterIndex = parameterIndex;
+            Value = "";
         }
     }
 }
