@@ -22,16 +22,30 @@ namespace Autonomous_Downloader
     /// <summary>
     /// Interaction logic for ProgramPanel.xaml
     /// </summary>
+    /// 
+    /// Creates a consolidated sub-panel within the AutonomousWindow that is 
+    /// responsible for allowing the user to edit a single route.
+    /// 
     public partial class ProgramPanel : UserControl
     {
+
+        /// <summary>
+        /// The current set of commands being shown in the commands panel.
+        /// </summary>
         private CommandTemplate[] CommandSet = null;
 
+        /// <summary>
+        /// The route name to present to the user.
+        /// </summary>
         public String ProgramNameLabel
         {
             get { return (String)ProgramNameLbl.Content; }
             set { ProgramNameLbl.Content = value; }
         }
 
+        /// <summary>
+        /// Ordered list of commands representing the route being edited
+        /// </summary>
         public ObservableCollection<Autonomous_x.Command> Commands
         {
             get
@@ -48,6 +62,9 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Parameters associated with the current selected route step.
+        /// </summary>
         public ObservableCollection<ParameterInstance> Parameters
         {
             get
@@ -61,6 +78,9 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// The current selected command in the commands list.
+        /// </summary>
         public Command SelectedCommand
         {
             get
@@ -76,6 +96,15 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Load the command set from its JSON file.
+        /// </summary>
+        /// 
+        /// The command set is the list of CommandTemplate objects available for the user to
+        /// add to a route.
+        /// 
+        /// <param name="filepath">The filename</param>
+        /// <returns>Returns true if the file was loaded successfully, otherwise false is returned.</returns>
         private bool LoadCommandSet(String filepath)
         {
             bool retval = false;
@@ -87,19 +116,29 @@ namespace Autonomous_Downloader
             }
             catch(Exception ex)
             {
-                //TODO do something with this expection
-                Console.WriteLine("Exception {0}", ex.Message);
-                Console.WriteLine("{0}", ex.StackTrace);
+                String msg = String.Format("Unable to load file {0}\n", filepath);
+                MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             return retval;
         }
 
+        /// <summary>
+        /// Save commands to a file.
+        /// </summary>
+        /// 
+        /// This function is primarily used to create a new command set file.
+        /// 
+        /// <param name="filepath">The name of the file to save to</param>
+        /// 
         private void SaveCommandSet(String filepath)
         {
             CommandTemplate.SaveCommandSet(CommandSet, filepath);
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ProgramPanel()
         {
             InitializeComponent();
@@ -107,6 +146,14 @@ namespace Autonomous_Downloader
             InitializeCommandsList();
         }
 
+        /// <summary>
+        /// Load commands into the display.
+        /// </summary>
+        /// 
+        /// Load the commands.json file. If the file cannot be loaded a default
+        /// file is created and saved to the current working directory and then
+        /// also attached to the commands list.
+        /// 
         private void InitializeCommandsList()
         {
             if (!LoadCommandSet("commands.json"))
@@ -131,6 +178,15 @@ namespace Autonomous_Downloader
             CommandTemplateLB.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// An different route step has been selected.
+        /// </summary>
+        /// 
+        /// This function will update the parameters display the parameters from the newly
+        /// selected route item.
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProgramCommandsLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Command selectedCommand = SelectedCommand;
@@ -145,6 +201,17 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Add a new step to the route.
+        /// </summary>
+        /// 
+        /// This function will insert a new command into the route based
+        /// on the location in the route that is selected and the command
+        /// selected in the command set.
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CommandTemplateLB.SelectedItem != null)
@@ -168,6 +235,13 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Remove the current selected route step.
+        /// </summary>
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (ProgramCommandsLB.SelectedIndex >= 0)
@@ -185,6 +259,13 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Move the current selected route step down by one.
+        /// </summary>
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void DownBtn_Click(object sender, RoutedEventArgs e)
         {
             if ((ProgramCommandsLB.SelectedIndex >= 0) && (ProgramCommandsLB.SelectedIndex < ProgramCommandsLB.Items.Count - 1))
@@ -197,6 +278,13 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Move the current selected route step up by one.
+        /// </summary>
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void UpBtn_Click(object sender, RoutedEventArgs e)
         {
             // if the index is set and greater than the first element
@@ -211,6 +299,17 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// A keyboard key has been issued in a parameter input field.
+        /// </summary>
+        /// 
+        /// If the key is returned the value in the field is stored back
+        /// to the parameters data store, the input is disabled, and
+        /// the label is shown with the new value.
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void ParameterEntry_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
@@ -239,6 +338,15 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// A click has been issued in a parameter display row.
+        /// </summary>
+        /// 
+        /// This function will switch the parameter display to an editable
+        /// input. The field
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParameterTB_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -255,6 +363,18 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Add a new command to the current route.
+        /// </summary>
+        /// 
+        /// This function will create a new command from the selected command
+        /// and add it to the current route after the current selection.
+        /// 
+        /// After the command is inserted selection switches to the new command.
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void CommandTemplateLB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CommandTemplateLB.SelectedItem != null)
@@ -278,6 +398,20 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Force the contents of the a parameter back into the program parameters storage.
+        /// </summary>
+        /// 
+        /// This function fires as the user is pressing a new key in a parameter entry field.
+        /// It will force the resulting value back into the storage record for the parameters.
+        /// 
+        /// //TODO consider another attempt to see if the text editor can be bound directly
+        ///   to the parameter in the backing store. That way WPF can take care of maintaining
+        ///   the value in the store.
+        /// 
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void ParameterEntry_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             int selectedIndex = ProgramParametersLB.SelectedIndex;
@@ -287,7 +421,6 @@ namespace Autonomous_Downloader
 
                 try
                 {
-                    //C Parameters[selectedIndex] = Convert.ToInt32(box.Text);
                     ParameterInstance pi = (ParameterInstance)Parameters[selectedIndex];
                     Parameters[selectedIndex].Value = box.Text;
                 }
@@ -299,6 +432,10 @@ namespace Autonomous_Downloader
             }
         }
 
+        /// <summary>
+        /// Reload the commands list to ensure that it is up to date.
+        /// </summary>
+        /// 
         private void RefreshCommandList()
         {
             ProgramCommandsLB.Items.Refresh();
