@@ -553,5 +553,12 @@ namespace Autonomous_Downloader
                 win.Top = 20.0;
             }
         }
+
+        private void DownloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DownloadWindow dlg = new DownloadWindow();
+            dlg.Owner = this;
+            dlg.Show();
+        }
     }
 }
